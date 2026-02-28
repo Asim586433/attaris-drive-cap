@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password_hash String
+  role          String    // GUEST, HOST, ADMIN
+  kyc_status    String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  location      String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  
+  cars          Car[]     @relation("HostCars")
+  bookings      Booking[] @relation("GuestBookings")
+  reviews       Review[]  @relation("ReviewAuthor")
+}
+
+model Car {
+  id              String    @id @default(uuid())
+  host_id         String
+  host            User      @relation("HostCars", fields: [host_id], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  price_per_day   Float
+  location        String    // City or ZIP
+  specs           String    // JSON string or comma-separated
+  availability    Boolean   @default(true)
+  images          String    // Comma-separated or JSON
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  bookings        Booking[] @relation("CarBookings")
+}
+
+model Booking {
+  id            String    @id @default(uuid())
+  car_id        String
+  car           Car       @relation("CarBookings", fields: [car_id], references: [id], onDelete: Cascade)
+  guest_id      String
+  guest         User      @relation("GuestBookings", fields: [guest_id], references: [id], onDelete: Cascade)
+  start_date    DateTime
+  end_date      DateTime
+  total_price   Float
+  status        String    @default("PENDING") // PENDING, APPROVED, ACTIVE, COMPLETED, CANCELLED, REVIEWED
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  
+  reviews       Review[]  @relation("BookingReviews")
+}
+
+model Review {
+  id            String    @id @default(uuid())
+  booking_id    String
+  booking       Booking   @relation("BookingReviews", fields: [booking_id], references: [id], onDelete: Cascade)
+  reviewer_id   String
+  reviewer      User      @relation("ReviewAuthor", fields: [reviewer_id], references: [id], onDelete: Cascade)
+  rating        Int
+  comment       String?
+  created_at    DateTime  @default(now())
+}
