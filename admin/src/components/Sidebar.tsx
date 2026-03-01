@@ -1,6 +1,5 @@
-import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Car, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CarFront, LogOut } from 'lucide-react';
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -24,9 +23,9 @@ const Sidebar = () => {
                     <Users size={20} />
                     <span>Users & KYC</span>
                 </NavLink>
-                <NavLink to="/cars" className={({ isActive }) => `flex items-center space-x-3 p-3 rounded-lg ${isActive ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'}`}>
-                    <Car size={20} />
-                    <span>Fleet</span>
+                <NavLink to="/cars" className={({ isActive }) => `flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary ${isActive ? 'bg-blue-50 text-primary border-r-4 border-primary' : ''}`}>
+                    <CarFront className="w-5 h-5 mr-3" />
+                    Fleet
                 </NavLink>
             </nav>
             <div className="p-4 border-t">

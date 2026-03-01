@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../api';
 
 const Users = () => {
@@ -45,17 +45,17 @@ const Users = () => {
                                 <td className="px-6 py-4">{u.email}</td>
                                 <td className="px-6 py-4">
                                     <span className={`px-2 py-1 rounded text-xs font-semibold ${u.role === 'ADMIN' ? 'bg-purple-100 text-purple-700' :
-                                            u.role === 'HOST' ? 'bg-blue-100 text-blue-700' :
-                                                u.role === 'SUSPENDED' ? 'bg-red-100 text-red-700' :
-                                                    'bg-gray-100 text-gray-700'
+                                        u.role === 'HOST' ? 'bg-blue-100 text-blue-700' :
+                                            u.role === 'SUSPENDED' ? 'bg-red-100 text-red-700' :
+                                                'bg-gray-100 text-gray-700'
                                         }`}>
                                         {u.role}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4">
                                     <span className={`px-2 py-1 rounded text-xs font-semibold ${u.kyc_status === 'APPROVED' ? 'bg-green-100 text-green-700' :
-                                            u.kyc_status === 'REJECTED' ? 'bg-red-100 text-red-700' :
-                                                'bg-yellow-100 text-yellow-700'
+                                        u.kyc_status === 'REJECTED' ? 'bg-red-100 text-red-700' :
+                                            'bg-yellow-100 text-yellow-700'
                                         }`}>
                                         {u.kyc_status}
                                     </span>

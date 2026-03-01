@@ -1,15 +1,15 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
 import Cars from './pages/Cars';
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-  const token = localStorage.getItem('token');
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const token = localStorage.getItem('adminToken');
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" />;
   }
   return (
     <div className="flex bg-gray-100 min-h-screen">
